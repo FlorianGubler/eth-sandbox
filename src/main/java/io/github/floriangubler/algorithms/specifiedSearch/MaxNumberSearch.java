@@ -1,4 +1,4 @@
-package io.github.floriangubler.algorithms.arrayMaxNum;
+package io.github.floriangubler.algorithms.specifiedSearch;
 
 import java.util.Arrays;
 
