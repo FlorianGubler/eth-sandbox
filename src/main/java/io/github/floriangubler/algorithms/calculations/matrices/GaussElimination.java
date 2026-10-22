@@ -1,4 +1,4 @@
-package io.github.floriangubler.algorithms.calculations;
+package io.github.floriangubler.algorithms.calculations.matrices;
 
 import java.util.Arrays;
 
@@ -49,7 +49,7 @@ public class GaussElimination {
      * @return A GaussResult object containing the upper triangular matrix U and the modified vector C.
      * @throws IllegalArgumentException if the matrix A is singular and cannot be solved using Gaussian elimination.
      */
-    private static GaussResult gaussElimination(double[][] A, double[]... B) {
+    public static GaussResult gaussElimination(double[][] A, double[]... B) {
         // Copy the input matrix A and vector B to avoid modifying the original data
         double[][] U = Arrays.stream(A).map(double[]::clone).toArray(double[][]::new);
         double[][] C = Arrays.stream(B).map(double[]::clone).toArray(double[][]::new);

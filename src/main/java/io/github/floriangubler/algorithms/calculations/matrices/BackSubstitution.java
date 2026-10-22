@@ -1,4 +1,4 @@
-package io.github.floriangubler.algorithms.calculations;
+package io.github.floriangubler.algorithms.calculations.matrices;
 
 public class BackSubstitution {
 
@@ -10,7 +10,7 @@ public class BackSubstitution {
      * @param c The vector corresponding to the right-hand side of the equation Ux = c.
      * @return The solution vector x.
      */
-    private static double[] backSubstitution(double[][] U, double[] c) {
+    public static double[] backSubstitution(double[][] U, double[] c) {
         double[] x = new double[U.length];
         for(int i = U.length - 1; i >= 0; i--) {
             double sum = 0;

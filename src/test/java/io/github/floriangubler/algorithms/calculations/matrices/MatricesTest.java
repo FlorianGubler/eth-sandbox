@@ -1,4 +1,4 @@
-package io.github.floriangubler.algorithms.calculations;
+package io.github.floriangubler.algorithms.calculations.matrices;
 
 import org.junit.jupiter.api.Test;
 
@@ -7,7 +7,7 @@ import java.lang.reflect.Method;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GaussEliminationTest {
+class MatricesTest {
 
     private static final double DELTA = 1e-10;
 
@@ -21,7 +21,7 @@ class GaussEliminationTest {
         double[] rightHandSide = {8, -11, -3};
 
         GaussElimination.GaussResult result =
-                gaussElimination(matrix, rightHandSide);
+                GaussElimination.gaussElimination(matrix, rightHandSide);
 
         assertTrue(result.success);
         assertMatrixEquals(new double[][]{
@@ -41,7 +41,7 @@ class GaussEliminationTest {
         double[] rightHandSide = {4, 5};
 
         GaussElimination.GaussResult result =
-                gaussElimination(matrix, rightHandSide);
+                GaussElimination.gaussElimination(matrix, rightHandSide);
 
         assertTrue(result.success);
         assertMatrixEquals(new double[][]{
@@ -60,7 +60,7 @@ class GaussEliminationTest {
         double[] rightHandSide = {3, 6};
 
         GaussElimination.GaussResult result =
-                gaussElimination(matrix, rightHandSide);
+                GaussElimination.gaussElimination(matrix, rightHandSide);
 
         assertFalse(result.success);
     }
@@ -76,7 +76,7 @@ class GaussEliminationTest {
         double[] vector2 = {16, -22, -6};
 
         GaussElimination.GaussResult result =
-                gaussElimination(matrix, vector1, vector2);
+                GaussElimination.gaussElimination(matrix, vector1, vector2);
 
         assertTrue(result.success);
 
@@ -89,14 +89,31 @@ class GaussEliminationTest {
         assertArrayEquals(new double[]{16, 2, 2}, result.C[1], DELTA);
     }
 
-    private static GaussElimination.GaussResult gaussElimination(
-            double[][] matrix, double[]... rightHandSide)
-            throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Method method = GaussElimination.class.getDeclaredMethod(
-                "gaussElimination", double[][].class, double[][].class);
-        method.setAccessible(true);
-        return (GaussElimination.GaussResult) method.invoke(
-                null, matrix, rightHandSide);
+    @Test
+    void testBackSubstitution(){
+        double[][] matrix = {
+                {2, 1, -2},
+                {0, -1, 2},
+                {0, 0, 2}
+        };
+        double[] vector1 = {8, -11, -3};
+
+        double[] result = BackSubstitution.backSubstitution(matrix, vector1);
+
+        assertArrayEquals(new double[]{-1.5, 8, -3 / 2.0}, result);
+    }
+
+    @Test
+    void testInverseMatrix(){
+        double[][] matrix = {
+                {1, 0, 0},
+                {0, 0, 1},
+                {0, 1, 0}
+        };
+
+        double[][] result = InverseMatrix.inverseMatrix(matrix);
+
+        assertArrayEquals(matrix, result);
     }
 
     private static void assertMatrixEquals(double[][] expected, double[][] actual) {
