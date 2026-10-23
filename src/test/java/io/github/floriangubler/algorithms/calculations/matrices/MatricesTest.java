@@ -2,9 +2,6 @@ package io.github.floriangubler.algorithms.calculations.matrices;
 
 import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class MatricesTest {
@@ -137,6 +134,31 @@ class MatricesTest {
         double[][] result = InverseMatrix.inverseMatrix(matrix);
 
         assertArrayEquals(matrix, result);
+    }
+
+    @Test
+    void testInverseMatrix2(){
+        double[][] matrix = {
+                {2, 3},
+                {1, 4}
+        };
+
+        double[][] result = InverseMatrix.inverseMatrix(matrix);
+
+        assertMatrixEquals(new double[][]{
+                {4.0/5, -3.0/5},
+                {-1.0/5, 2.0/5}
+        }, result);
+    }
+
+    @Test
+    void testInverseMatrixFail(){
+        double[][] matrix = {
+                {0, 1},
+                {0, 1}
+        };
+
+        assertThrows(IllegalArgumentException.class, () -> InverseMatrix.inverseMatrix(matrix));
     }
 
     private static void assertMatrixEquals(double[][] expected, double[][] actual) {

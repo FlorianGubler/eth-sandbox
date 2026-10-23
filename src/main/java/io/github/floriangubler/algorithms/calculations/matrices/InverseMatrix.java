@@ -13,13 +13,24 @@ public class InverseMatrix {
         // Create an identity matrix of the given dimensions
         double[][] I = createIdentityMatrix(A.length, A[0].length);
         // Get upper triangular matrix for A and I and validate result
+        // This uses that the AInv * A = I, so we can solve for AInv by solving the system of equations
         GaussElimination.GaussResult r = GaussElimination.gaussElimination(A, I);
         if(!r.success) throw new IllegalArgumentException("Singular matrix given (non-invertible)");
         // Create result for inverse matrix
         double[][] AInv = new double[A.length][A[0].length];
-        // Loop trough inverse matrix columns and calculate using back substitution for each
-        for(int i = 0; i < A.length; i++){
-            AInv[i] = BackSubstitution.backSubstitution(r.U, r.C[i]);
+        // Solve for each column (vector) of the inverse matrix using back substitution
+        for (int j = 0; j < A.length; j++) {
+            // Get the j-th column vector from the right hand side of the system of equations
+            double[] vC = new double[A.length];
+            for (int row = 0; row < A.length; row++) {
+                vC[row] = r.C[row][j];
+            }
+            // Solve for the j-th column of the inverse matrix using back substitution
+            double[] solution = BackSubstitution.backSubstitution(r.U, vC);
+            // Set the j-th column of the inverse matrix to the solution vector
+            for (int row = 0; row < A.length; row++) {
+                AInv[row][j] = solution[row];
+            }
         }
         return AInv;
     }
