@@ -49,9 +49,9 @@ public class GaussElimination {
      * Performs Gaussian elimination on the given matrix A and list of vectors B
      * to transform A into an upper triangular matrix U and modify B accordingly.
      *
-     * @param A The coefficient matrix.
-     * @param B The list of vectors to be modified according to the elimination process.
-     * @return A GaussResult object containing the upper triangular matrix U and the modified vector C.
+     * @param A The coefficient matrix to be modified into an upper triangular form.
+     * @param B The matrix as list of column vectors to be modified according to the transformations applied to A.
+     * @return A GaussResult object containing the upper triangular matrix U and the modified matrix C containing the transformed column vectors.
      * @throws IllegalArgumentException if the matrix A is singular and cannot be solved using Gaussian elimination.
      */
     public static GaussResult gaussElimination(double[][] A, double[][] B) {
