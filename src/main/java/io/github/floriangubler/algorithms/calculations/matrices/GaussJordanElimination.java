@@ -9,8 +9,11 @@ public class GaussJordanElimination {
      * including the reduced row echelon form of the matrix, the modified vector, and the indices of the downward steps taken during the elimination.
      */
     public static class GaussJordanResult {
+        // The reduced row echelon form of the matrix after applying Gauss-Jordan elimination.
         double[][] R;
+        // The matrix of modified column vectors after applying Gauss-Jordan elimination.
         double [][] C;
+        // The indices of the downward steps taken during the elimination process.
         int[] downwardStepIndices;
 
         GaussJordanResult(double[][] R, double[][] C, int[] downwardStepIndices) {
@@ -44,9 +47,12 @@ public class GaussJordanElimination {
             if(r == R.length) {
                 break; // All rows have been processed
             }
-
+            // If the current pivot element is zero we try to find a row below it
+            // with a non-zero entry in the same column to exchange with
             if(R[r][j] == 0){
                 int k = getExchangeRow(r, j, R);
+                // If a suitable row is found, exchange the current row with that
+                // row in both R and C (if applicable)
                 if(k != -1){
                     exchangeRows(R, r, k);
                     if(r < C.length){
@@ -57,10 +63,16 @@ public class GaussJordanElimination {
                     continue;
                 }
             }
-            divideRow(R, r, R[r][j]);
+            // Divide the current row by the pivot element to make it 1
+            // in both R and C (if applicable)
+            double divider = R[r][j];
+            divideRow(R, r, divider);
             if(r < C.length){
-                divideRow(C, r, R[r][j]);
+                divideRow(C, r, divider);
             }
+            // Eliminate all other entries in column j by subtracting
+            // appropriate multiples of the current row from the other rows
+            // (both lower and higher rows) in both R and C (if applicable)
             for(int i = 0; i < R.length; i++){
                 if(i != r && R[i][j] != 0){
                     double factor = R[i][j];
@@ -70,6 +82,9 @@ public class GaussJordanElimination {
                     }
                 }
             }
+            // Increment the row index r and store the current
+            // column index j in the downward step indices array
+            // (if we are at this step the current row is a downward step)
             downwardStepIndices[r++] = j;
         }
         return new GaussJordanResult(R, C, Arrays.copyOf(downwardStepIndices, r));

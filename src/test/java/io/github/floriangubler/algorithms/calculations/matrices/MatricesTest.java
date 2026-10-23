@@ -126,26 +126,26 @@ class MatricesTest {
     }
 
     @Test
-    void testInverseMatrix(){
+    void testInverseGaussMatrix(){
         double[][] matrix = {
                 {1, 0, 0},
                 {0, 0, 1},
                 {0, 1, 0}
         };
 
-        double[][] result = InverseMatrix.inverseMatrix(matrix);
+        double[][] result = InverseMatrix.inverseMatrixGauss(matrix);
 
         assertArrayEquals(matrix, result);
     }
 
     @Test
-    void testInverseMatrix2(){
+    void testInverseMatrixGauss2(){
         double[][] matrix = {
                 {2, 3},
                 {1, 4}
         };
 
-        double[][] result = InverseMatrix.inverseMatrix(matrix);
+        double[][] result = InverseMatrix.inverseMatrixGauss(matrix);
 
         assertMatrixEquals(new double[][]{
                 {4.0/5, -3.0/5},
@@ -160,7 +160,8 @@ class MatricesTest {
                 {0, 1}
         };
 
-        assertThrows(IllegalArgumentException.class, () -> InverseMatrix.inverseMatrix(matrix));
+        assertThrows(IllegalArgumentException.class, () -> InverseMatrix.inverseMatrixGauss(matrix));
+        assertThrows(IllegalArgumentException.class, () -> InverseMatrix.inverseMatrixGaussJordan(matrix));
     }
 
     @Test
@@ -186,10 +187,38 @@ class MatricesTest {
         }, result.R);
         System.out.println(Arrays.toString(result.C[2]));
         assertMatrixEquals(new double[][]{
-                {2},
-                {3},
-                {-4}
+                {1},
+                {0.5},
+                {-1}
         }, result.C);
+    }
+
+    @Test
+    void testInverseGaussJordanMatrix(){
+        double[][] matrix = {
+                {1, 0, 0},
+                {0, 0, 1},
+                {0, 1, 0}
+        };
+
+        double[][] result = InverseMatrix.inverseMatrixGaussJordan(matrix);
+
+        assertArrayEquals(matrix, result);
+    }
+
+    @Test
+    void testInverseMatrixGaussJordan2(){
+        double[][] matrix = {
+                {2, 3},
+                {1, 4}
+        };
+
+        double[][] result = InverseMatrix.inverseMatrixGaussJordan(matrix);
+
+        assertMatrixEquals(new double[][]{
+                {4.0/5, -3.0/5},
+                {-1.0/5, 2.0/5}
+        }, result);
     }
 
     private static void assertMatrixEquals(double[][] expected, double[][] actual) {
