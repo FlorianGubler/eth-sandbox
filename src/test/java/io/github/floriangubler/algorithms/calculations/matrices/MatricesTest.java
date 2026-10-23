@@ -18,7 +18,11 @@ class MatricesTest {
                 {-3, -1, 2},
                 {-2, 1, 2}
         };
-        double[] rightHandSide = {8, -11, -3};
+        double[][] rightHandSide = {
+                {8},
+                {-11},
+                {-3}
+        };
 
         GaussElimination.GaussResult result =
                 GaussElimination.gaussElimination(matrix, rightHandSide);
@@ -29,7 +33,11 @@ class MatricesTest {
                 {0, 0.5, 0.5},
                 {0, 0, -1}
         }, result.U);
-        assertArrayEquals(new double[]{8, 1, 1}, result.C[0], DELTA);
+        assertMatrixEquals(new double[][]{
+                {8},
+                {1},
+                {1}
+        }, result.C);
     }
 
     @Test
@@ -38,7 +46,10 @@ class MatricesTest {
                 {0, 2},
                 {1, 3}
         };
-        double[] rightHandSide = {4, 5};
+        double[][] rightHandSide = {
+                {4},
+                {5}
+        };
 
         GaussElimination.GaussResult result =
                 GaussElimination.gaussElimination(matrix, rightHandSide);
@@ -48,7 +59,10 @@ class MatricesTest {
                 {1, 3},
                 {0, 2}
         }, result.U);
-        assertArrayEquals(new double[]{5, 4}, result.C[0], DELTA);
+        assertMatrixEquals(new double[][]{
+                {5},
+                {4}
+        }, result.C);
     }
 
     @Test
@@ -57,7 +71,10 @@ class MatricesTest {
                 {1, 2},
                 {2, 4}
         };
-        double[] rightHandSide = {3, 6};
+        double[][] rightHandSide = {
+                {3},
+                {6}
+        };
 
         GaussElimination.GaussResult result =
                 GaussElimination.gaussElimination(matrix, rightHandSide);
@@ -72,11 +89,14 @@ class MatricesTest {
                 {-3, -1, 2},
                 {-2, 1, 2}
         };
-        double[] vector1 = {8, -11, -3};
-        double[] vector2 = {16, -22, -6};
+        double[][] rightHandSides = {
+                {8, 16},
+                {-11, -22},
+                {-3, -6}
+        };
 
         GaussElimination.GaussResult result =
-                GaussElimination.gaussElimination(matrix, vector1, vector2);
+                GaussElimination.gaussElimination(matrix, rightHandSides);
 
         assertTrue(result.success);
 
@@ -85,8 +105,11 @@ class MatricesTest {
                 {0, 0.5, 0.5},
                 {0, 0, -1}
         }, result.U);
-        assertArrayEquals(new double[]{8, 1, 1}, result.C[0], DELTA);
-        assertArrayEquals(new double[]{16, 2, 2}, result.C[1], DELTA);
+        assertMatrixEquals(new double[][]{
+                {8, 16},
+                {1, 2},
+                {1, 2}
+        }, result.C);
     }
 
     @Test

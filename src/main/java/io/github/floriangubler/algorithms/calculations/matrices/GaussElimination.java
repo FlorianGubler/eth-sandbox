@@ -24,7 +24,8 @@ public class GaussElimination {
             return "GaussResult{" +
                     "U=" + Arrays.deepToString(U) +
                     ", C=" + Arrays.deepToString(C) +
-                    ", success=}" + success;
+                    ", success=" + success +
+                    '}';
         }
     }
 
@@ -35,9 +36,13 @@ public class GaussElimination {
                 {2, 8, 17}
         };
 
-        double[] b = {19, 55, 50};
+        double[][] B = {
+                {2, 3, 4},
+                {4, 11, 14},
+                {2, 8, 17}
+        };
 
-        System.out.println("Solution: " + gaussElimination(A, b));
+        System.out.println("Solution: " + gaussElimination(A, B));
     }
 
     /**
@@ -49,7 +54,7 @@ public class GaussElimination {
      * @return A GaussResult object containing the upper triangular matrix U and the modified vector C.
      * @throws IllegalArgumentException if the matrix A is singular and cannot be solved using Gaussian elimination.
      */
-    public static GaussResult gaussElimination(double[][] A, double[]... B) {
+    public static GaussResult gaussElimination(double[][] A, double[][] B) {
         // Copy the input matrix A and vector B to avoid modifying the original data
         double[][] U = Arrays.stream(A).map(double[]::clone).toArray(double[][]::new);
         double[][] C = Arrays.stream(B).map(double[]::clone).toArray(double[][]::new);
@@ -63,10 +68,8 @@ public class GaussElimination {
                 // If we found a row to exchange with, perform the exchange on both U and all vectors in C
                 if(exchangeRow != -1){
                     exchangeRows(U, j, exchangeRow);
-                    for (double[] vector : C) {
-                        double tmp = vector[j];
-                        vector[j] = vector[exchangeRow];
-                        vector[exchangeRow] = tmp;
+                    if(j < C.length){
+                        exchangeRows(C, j, exchangeRow);
                     }
                 // If there is no such row, the matrix is singular,
                 // and we cannot proceed with Gaussian elimination
@@ -80,8 +83,8 @@ public class GaussElimination {
                 double f = U[i][j] / U[j][j];
                 // Subtract the current row multiplied by the factor from the row below in both U and all vectors in C
                 subtractRows(U, i, j, f);
-                for (double[] vector : C) {
-                    vector[i] -= f * vector[j];
+                if(i < C.length){
+                    subtractRows(C, i, j, f);
                 }
             }
         }
