@@ -29,22 +29,6 @@ public class GaussElimination {
         }
     }
 
-    public static void main(String[] args) {
-        double[][] A = {
-                {2, 3, 4},
-                {4, 11, 14},
-                {2, 8, 17}
-        };
-
-        double[][] B = {
-                {2, 3, 4},
-                {4, 11, 14},
-                {2, 8, 17}
-        };
-
-        System.out.println("Solution: " + gaussElimination(A, B));
-    }
-
     /**
      * Performs Gaussian elimination on the given matrix A and list of vectors B
      * to transform A into an upper triangular matrix U and modify B accordingly.
@@ -64,7 +48,7 @@ public class GaussElimination {
             // with a row below that has a non-zero entry in the same column
             if(U[j][j] == 0){
                 // Try finding the exchange row
-                int exchangeRow = getExchangeRow(j, U);
+                int exchangeRow = getExchangeRow(j, j, U);
                 // If we found a row to exchange with, perform the exchange on both U and all vectors in C
                 if(exchangeRow != -1){
                     exchangeRows(U, j, exchangeRow);
@@ -107,16 +91,17 @@ public class GaussElimination {
     }
 
     /**
-     * Finds a row below the given row index j that has a non-zero entry in column j.
+     * Finds a row below the given row index r that has a non-zero entry in column index c.
      *
-     * @param j The column index to check for non-zero entries.
+     * @param r The starting row index to check for non-zero entries.
+     * @param c The column index to check for non-zero entries.
      * @param X The matrix to search for a suitable row.
      * @return The index of the row with a non-zero entry in column j, or -1 if no such row exists.
      */
-    private static int getExchangeRow(int j, double[][] X) {
+    private static int getExchangeRow(int r, int c, double[][] X) {
         int exchangeRow = -1;
-        for(int i = j + 1; i < X.length; i++) {
-            if (X[i][j] != 0) {
+        for(int i = r + 1; i < X.length; i++) {
+            if (X[i][c] != 0) {
                 exchangeRow = i;
                 break;
             }

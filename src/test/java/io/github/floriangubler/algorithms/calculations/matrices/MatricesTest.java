@@ -2,6 +2,8 @@ package io.github.floriangubler.algorithms.calculations.matrices;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class MatricesTest {
@@ -159,6 +161,35 @@ class MatricesTest {
         };
 
         assertThrows(IllegalArgumentException.class, () -> InverseMatrix.inverseMatrix(matrix));
+    }
+
+    @Test
+    void testGaussJordanElimination(){
+        double[][] matrix = {
+                {2, 4, 2, 2, -2},
+                {6, 12, 6, 7, 1},
+                {4, 8, 2, 2, 6}
+        };
+        double[][] rightHandSide = {
+                {1},
+                {2},
+                {3}
+        };
+
+        GaussJordanElimination.GaussJordanResult result =
+                GaussJordanElimination.gaussJordanElimination(matrix, rightHandSide);
+
+        assertMatrixEquals(new double[][]{
+                {1, 2, 0, 0, 4},
+                {0, 0, 1, 0, -12},
+                {0, 0, 0, 1, 7}
+        }, result.R);
+        System.out.println(Arrays.toString(result.C[2]));
+        assertMatrixEquals(new double[][]{
+                {2},
+                {3},
+                {-4}
+        }, result.C);
     }
 
     private static void assertMatrixEquals(double[][] expected, double[][] actual) {
