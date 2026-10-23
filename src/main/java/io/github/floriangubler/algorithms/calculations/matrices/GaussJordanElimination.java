@@ -91,6 +91,34 @@ public class GaussJordanElimination {
     }
 
     /**
+     * Computes the direct solution of a system of linear equations represented in reduced row echelon form.
+     *
+     * @param R The reduced row echelon form of the matrix after applying Gauss-Jordan elimination.
+     * @param downwardStepIndices The indices of the downward steps taken during the elimination process.
+     * @param c The right-hand side vector corresponding to the system of equations.
+     * @return The solution vector b, where b[i] corresponds to the variable associated with the i-th downward step index.
+     * @throws IllegalArgumentException if any entry in c below the last downward step index is non-zero, indicating no solution exists.
+     */
+    public static double[] directSolution(double[][] R, int[] downwardStepIndices, double[] c){
+        double[] b = new double[R[0].length];
+        // Check that for the right hand side vector c,
+        // all entries below the last downward step index are zero
+        // because they correspond to rows that have been
+        // eliminated and can therefore not be != 0
+        for(int i = downwardStepIndices.length; i < c.length; i++){
+            if(c[i] != 0){
+                throw new IllegalArgumentException("No solution exists for the given system of equations.");
+            }
+        }
+        // Fill the solution vector b with the values from c
+        // all other entries are 0
+        for(int i = 0; i < downwardStepIndices.length; i++){
+            b[downwardStepIndices[i]] = c[i];
+        }
+        return b;
+    }
+
+    /**
      * Subtracts a multiple of one row from another row in a given matrix.
      *
      * @param X The matrix in which the rows will be modified.

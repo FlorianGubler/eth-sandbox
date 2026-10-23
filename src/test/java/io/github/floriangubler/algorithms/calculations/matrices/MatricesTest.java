@@ -120,7 +120,7 @@ class MatricesTest {
         };
         double[] vector1 = {8, -11, -3};
 
-        double[] result = BackSubstitution.backSubstitution(matrix, vector1);
+        double[] result = GaussElimination.backSubstitution(matrix, vector1);
 
         assertArrayEquals(new double[]{-1.5, 8, -3 / 2.0}, result);
     }
@@ -220,6 +220,28 @@ class MatricesTest {
                 {-1.0/5, 2.0/5}
         }, result);
     }
+
+    @Test
+    void testDirectSolution(){
+        double[][] matrix = {
+                {2, 4, 2, 2, -2},
+                {6, 12, 6, 7, 1},
+                {4, 8, 2, 2, 6}
+        };
+        double[][] rightHandSide = {
+                {1},
+                {2},
+                {3}
+        };
+
+        GaussJordanElimination.GaussJordanResult r = GaussJordanElimination.gaussJordanElimination(matrix, rightHandSide);
+        double[] result = GaussJordanElimination.directSolution(
+                r.R,
+                r.downwardStepIndices,
+                new double[]{r.C[0][0], r.C[1][0], r.C[2][0]}
+        );
+
+        assertArrayEquals(new double[]{1, 0, 0.5, -1, 0}, result);    }
 
     private static void assertMatrixEquals(double[][] expected, double[][] actual) {
         assertEquals(expected.length, actual.length);

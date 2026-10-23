@@ -28,7 +28,7 @@ public class InverseMatrix {
                 vC[row] = r.C[row][j];
             }
             // Solve for the j-th column of the inverse matrix using back substitution
-            double[] solution = BackSubstitution.backSubstitution(r.U, vC);
+            double[] solution = GaussElimination.backSubstitution(r.U, vC);
             // Set the j-th column of the inverse matrix to the solution vector
             for (int row = 0; row < A.length; row++) {
                 AInv[row][j] = solution[row];
