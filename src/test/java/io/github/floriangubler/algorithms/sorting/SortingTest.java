@@ -55,6 +55,15 @@ class SortingTest {
     }
 
     @Test
+    void insertionSortFindsInsertionPointsBeforeAndAfterSortedPrefix() {
+        int[] numbers = {3, 1, 2, 5, 4};
+
+        InsertionSort.insertionSort(numbers);
+
+        assertArrayEquals(new int[]{1, 2, 3, 4, 5}, numbers);
+    }
+
+    @Test
     void quickSortSortsArray() {
         int[] numbers = UNSORTED.clone();
 
