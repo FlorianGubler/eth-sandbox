@@ -222,6 +222,25 @@ class MatricesTest {
     }
 
     @Test
+    void testInverseMatrixGaussJordan3(){
+        double[][] matrix = {
+                {1, 0, 0, 0},
+                {1, 1, 0, 0},
+                {1, 1, 1, 0},
+                {1, 1, 1, 1}
+        };
+
+        double[][] result = InverseMatrix.inverseMatrixGaussJordan(matrix);
+
+        assertMatrixEquals(new double[][]{
+                {1, 0, 0, 0},
+                {-1, 1, 0, 0},
+                {0, -1, 1, 0},
+                {0, 0, -1, 1}
+        }, result);
+    }
+
+    @Test
     void testDirectSolution(){
         double[][] matrix = {
                 {2, 4, 2, 2, -2},

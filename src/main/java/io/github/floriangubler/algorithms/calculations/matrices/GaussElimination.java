@@ -44,7 +44,7 @@ public class GaussElimination {
         double[][] C = Arrays.stream(B).map(double[]::clone).toArray(double[][]::new);
         // Loop through each column of the matrix U
         for(int j = 0; j < U.length; j++) {
-            // If the current pivot element we need to exchange the current row
+            // If the current pivot element is 0 we need to exchange the current row
             // with a row below that has a non-zero entry in the same column
             if(U[j][j] == 0){
                 // Try finding the exchange row
@@ -61,7 +61,7 @@ public class GaussElimination {
                     return new GaussResult(U, C, false);
                 }
             }
-            // Loop through the rows below the current row to eliminate the entries in the current column
+            // Loop through all the rows below the current row to eliminate (make 0) the entries in the current column
             for(int i = j + 1; i < U.length; i++){
                 // Calculate the factor by which to multiply the current row before subtracting it from the row below
                 double f = U[i][j] / U[j][j];
