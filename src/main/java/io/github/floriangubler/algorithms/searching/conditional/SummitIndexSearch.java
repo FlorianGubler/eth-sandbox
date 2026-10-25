@@ -1,4 +1,4 @@
-package io.github.floriangubler.algorithms.specifiedSearch;
+package io.github.floriangubler.algorithms.searching.conditional;
 
 public class SummitIndexSearch {
     public static void main(String[] args){

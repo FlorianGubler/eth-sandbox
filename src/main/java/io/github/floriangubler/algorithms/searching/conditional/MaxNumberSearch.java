@@ -1,4 +1,4 @@
-package io.github.floriangubler.algorithms.specifiedSearch;
+package io.github.floriangubler.algorithms.searching.conditional;
 
 import java.util.Arrays;
 
