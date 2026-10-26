@@ -73,6 +73,24 @@ class SortingTest {
     }
 
     @Test
+    void heapSortSortsArray() {
+        int[] numbers = UNSORTED.clone();
+
+        HeapSort.heapSort(numbers);
+
+        assertArrayEquals(SORTED, numbers);
+    }
+
+    @Test
+    void heapSortFindsInsertionPointsBeforeAndAfterSortedPrefix() {
+        int[] numbers = {3, 1, 2, 5, 4};
+
+        HeapSort.heapSort(numbers);
+
+        assertArrayEquals(new int[]{1, 2, 3, 4, 5}, numbers);
+    }
+
+    @Test
     void sortingAlgorithmsHandleEmptyAndSingleElementArrays() {
         int[] empty = {};
         int[] single = {1};
