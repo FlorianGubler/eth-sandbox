@@ -15,7 +15,8 @@ public class HeapSort {
         for(int i = (A.length - 1) / 2; i >= 0; i--) {
             restoreHeapCondition(A, i, A.length - 1);
         }
-        // Loop through the array from the last element down to the second element,
+        // Loop through the array from the last element down to the second element
+        // (the first element is already in place after the first iteration),
         // switching the root of the heap with the last element
         // and then restoring the heap condition for the remaining elements
         for(int i = A.length - 1; i >= 1; i--) {
