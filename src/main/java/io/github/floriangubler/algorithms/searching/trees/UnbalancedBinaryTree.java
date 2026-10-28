@@ -1,15 +1,19 @@
 package io.github.floriangubler.algorithms.searching.trees;
 
 /**
- * A simple implementation of a binary tree for a generic comparable object.
+ * A simple implementation of an unbalanced binary tree for a generic comparable object.
  * Each node in the tree contains a value and references to its left and right child nodes.
  * The binary tree condition is that the left child node's value is less than the parent
  * node's value, and the right child node's value is greater than to the parent node's value.
  * Note: Duplicate values are not allowed in this implementation.
+ * Runtime:
+ * - Insertion: O(log n) on average, O(n) in the worst case (unbalanced tree)
+ * - Search: O(log n) on average, O(n) in the worst case (unbalanced tree)
+ * - Deletion: O(log n) on average, O(n) in the worst case (unbalanced tree)
  *
  * @author Florian Gubler
  */
-public class BinaryTree<T extends Comparable<T>> {
+public class UnbalancedBinaryTree<T extends Comparable<T>> {
 
     /**
      * Represents a node in the binary tree. Each node contains an integer value and references
@@ -35,7 +39,7 @@ public class BinaryTree<T extends Comparable<T>> {
     /**
      * Constructs an empty binary tree.
      */
-    public BinaryTree() {}
+    public UnbalancedBinaryTree() {}
 
     /**
      * Constructs a binary tree from an array of values.
@@ -43,7 +47,7 @@ public class BinaryTree<T extends Comparable<T>> {
      * @param values The array of values to be inserted into the binary tree.
      */
     @SafeVarargs
-    public BinaryTree(T... values){
+    public UnbalancedBinaryTree(T... values){
         for(T value : values) {
             insert(value);
         }

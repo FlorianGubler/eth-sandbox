@@ -6,18 +6,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class BinaryTreeTest {
+class UnbalancedBinaryTreeTest {
 
     @Test
     void emptyConstructorCreatesEmptyTree() {
-        BinaryTree<Integer> tree = new BinaryTree<>();
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>();
 
         assertNull(tree.root);
     }
 
     @Test
     void valuesConstructorBuildsBinarySearchTree() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5, 3, 7, 2, 4, 6, 8);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5, 3, 7, 2, 4, 6, 8);
 
         assertEquals(5, tree.root.value);
         assertEquals(3, tree.root.left.value);
@@ -30,7 +30,7 @@ class BinaryTreeTest {
 
     @Test
     void insertAddsValuesToCorrectBranches() {
-        BinaryTree<Integer> tree = new BinaryTree<>();
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>();
 
         tree.insert(5);
         tree.insert(3);
@@ -43,14 +43,14 @@ class BinaryTreeTest {
 
     @Test
     void insertRejectsDuplicateValues() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5);
 
         assertThrows(IllegalArgumentException.class, () -> tree.insert(5));
     }
 
     @Test
     void searchReturnsStoredValueWhenPresent() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5, 3, 7, 2, 4, 6, 8);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5, 3, 7, 2, 4, 6, 8);
 
         assertEquals(2, tree.search(2));
         assertEquals(5, tree.search(5));
@@ -59,14 +59,14 @@ class BinaryTreeTest {
 
     @Test
     void searchReturnsNullWhenValueIsMissing() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5, 3, 7);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5, 3, 7);
 
         assertNull(tree.search(10));
     }
 
     @Test
     void deleteRemovesLeafNode() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5, 3, 7);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5, 3, 7);
 
         tree.delete(3);
 
@@ -76,7 +76,7 @@ class BinaryTreeTest {
 
     @Test
     void deleteRemovesNodeWithOnlyLeftChild() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5, 3, 2, 7);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5, 3, 2, 7);
 
         tree.delete(3);
 
@@ -86,7 +86,7 @@ class BinaryTreeTest {
 
     @Test
     void deleteRemovesNodeWithOnlyRightChild() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5, 3, 4, 7);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5, 3, 4, 7);
 
         tree.delete(3);
 
@@ -96,7 +96,7 @@ class BinaryTreeTest {
 
     @Test
     void deleteRemovesNodeWithTwoChildren() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5, 3, 7, 2, 4, 6, 8);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5, 3, 7, 2, 4, 6, 8);
 
         tree.delete(3);
 
@@ -107,7 +107,7 @@ class BinaryTreeTest {
 
     @Test
     void deleteCanRemoveRoot() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5, 3, 7);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5, 3, 7);
 
         tree.delete(5);
 
@@ -117,14 +117,14 @@ class BinaryTreeTest {
 
     @Test
     void deleteRejectsMissingValue() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5, 3, 7);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5, 3, 7);
 
         assertThrows(IllegalArgumentException.class, () -> tree.delete(10));
     }
 
     @Test
     void deleteMakesTreeEmptyWhenDeletingOnlyValue() {
-        BinaryTree<Integer> tree = new BinaryTree<>(5);
+        UnbalancedBinaryTree<Integer> tree = new UnbalancedBinaryTree<>(5);
 
         tree.delete(5);
 
