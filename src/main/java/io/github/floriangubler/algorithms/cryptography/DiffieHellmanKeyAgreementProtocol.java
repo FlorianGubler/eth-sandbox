@@ -56,6 +56,14 @@ public class DiffieHellmanKeyAgreementProtocol {
             return modularExponentiation(otherPublicKey, privateKey);
         }
 
+        /**
+         * Computes the modular exponentiation using the method of exponentiation by squaring.
+         * This method efficiently computes (base^exponent) mod PRIME_NUMBER.
+         *
+         * @param base     The base value.
+         * @param exponent The exponent value.
+         * @return The result of (base^exponent) mod PRIME_NUMBER.
+         */
         private int modularExponentiation(int base, int exponent) {
             long result = 1;
             long reducedBase = Math.floorMod(base, PRIME_NUMBER);
