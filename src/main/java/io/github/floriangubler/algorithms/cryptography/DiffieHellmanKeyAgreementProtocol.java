@@ -1,5 +1,6 @@
 package io.github.floriangubler.algorithms.cryptography;
 
+import java.math.BigInteger;
 import java.util.Random;
 
 /**
@@ -33,9 +34,8 @@ public class DiffieHellmanKeyAgreementProtocol {
          * The private key of the participant, randomly generated.
          * Note: The private key should be in the range [2, PRIME_NUMBER - 1]
          * to ensure security because 0 and 1 do not provide enough entropy for the shared secret
-         * and keys bigger than the prime number are not valid as they will be reduced modulo the prime number.
          */
-        private final int privateKey = new Random().nextInt(PRIME_NUMBER - 2) + 2;
+        private final int privateKey = new Random().nextInt() + 2;
 
         /**
          * Computes the public key based on the private key, generator, and prime number.
@@ -65,18 +65,12 @@ public class DiffieHellmanKeyAgreementProtocol {
          * @return The result of (base^exponent) mod PRIME_NUMBER.
          */
         private int modularExponentiation(int base, int exponent) {
-            long result = 1;
-            long reducedBase = Math.floorMod(base, PRIME_NUMBER);
-
-            while (exponent > 0) {
-                if ((exponent & 1) == 1) {
-                    result = result * reducedBase % PRIME_NUMBER;
-                }
-                reducedBase = reducedBase * reducedBase % PRIME_NUMBER;
-                exponent >>= 1;
-            }
-
-            return (int) result;
+            return BigInteger.valueOf(base)
+                    .modPow(
+                            BigInteger.valueOf(exponent),
+                            BigInteger.valueOf(PRIME_NUMBER)
+                    )
+                    .intValue();
         }
     }
 }
