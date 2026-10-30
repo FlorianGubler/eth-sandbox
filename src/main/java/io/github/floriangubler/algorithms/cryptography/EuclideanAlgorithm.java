@@ -46,20 +46,32 @@ public class EuclideanAlgorithm {
         long oldY = 0;
         long y = 1;
 
-        // We make the equation a * x + b * y = gcd(a, b) smaller and smaller until the remainder is zero. At
-        // that point, the old remainder is the gcd and the old coefficients are the Bézout coefficients.
-        // To make the equation smaller we use Euclidean division, which states that for any two integers a and b,
-        // there exist unique integers q and r such that a = b * q + r, where 0 <= r < |b|.
+        // We make the equation abs(a) * oldX + abs(b) * oldY = oldRemainder smaller and smaller until
+        // the remainder is zero. At that point, the old remainder is the gcd and the old coefficients are
+        // the Bézout coefficients.
+        // To make the equation smaller we use Euclidean division. It states that for any two integers u and v,
+        // there exist unique integers q and r such that u = v * q + r, where 0 <= r < |v|.
+        // Therefore, the remainder r is smaller than v, which means that the next equation is smaller than
+        // the current one. The gcd does not change because every divisor of u and v also divides
+        // u - v * q = r, and every divisor of v and r also divides v * q + r = u.
         while (remainder != 0) {
-            // Calculate the quotient of the Euclidean division of oldRemainder by remainder.
+            // Calculate how many times remainder fits into oldRemainder. This is valid because Euclidean
+            // division lets us write oldRemainder as quotient * remainder plus a remainder smaller than
+            // the current remainder.
             long quotient = oldRemainder / remainder;
 
-            // Euclidean division: oldRemainder = quotient * remainder + nextRemainder.
+            // Calculate the new, smaller remainder:
+            // oldRemainder = quotient * remainder + nextRemainder.
+            // Subtracting quotient * remainder is allowed because it does not change the gcd, and it gives
+            // 0 <= nextRemainder < remainder. This is what makes the equation smaller in every iteration.
             long nextRemainder = oldRemainder - quotient * remainder;
             oldRemainder = remainder;
             remainder = nextRemainder;
 
-            // Apply the same linear combination to the Bézout coefficients.
+            // Apply the same subtraction to the Bézout coefficients. Since remainder is represented by
+            // abs(a) * x + abs(b) * y, oldRemainder - quotient * remainder is represented by
+            // abs(a) * (oldX - quotient * x) + abs(b) * (oldY - quotient * y).
+            // This keeps the coefficients in sync with the smaller remainder.
             long nextX = oldX - quotient * x;
             oldX = x;
             x = nextX;

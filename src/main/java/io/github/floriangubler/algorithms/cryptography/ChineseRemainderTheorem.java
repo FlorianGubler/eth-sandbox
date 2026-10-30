@@ -37,6 +37,8 @@ public class ChineseRemainderTheorem {
             }
             Ni[i] = result.x; // x is the multiplicative inverse of Mi[i]
         }
+        // The solution then is Σ (ri * Mi * Ni) because each term will be
+        // congruent to ri modulo mi and 0 modulo all other moduli.
         long L = 0;
         for (int i = 0; i < residues.length; i++) {
             L += residues[i] * Mi[i] * Ni[i];
