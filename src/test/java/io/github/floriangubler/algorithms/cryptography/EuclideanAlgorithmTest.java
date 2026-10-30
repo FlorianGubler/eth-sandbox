@@ -1,4 +1,4 @@
-package io.github.floriangubler.algorithms.calculations.general;
+package io.github.floriangubler.algorithms.cryptography;
 
 import org.junit.jupiter.api.Test;
 

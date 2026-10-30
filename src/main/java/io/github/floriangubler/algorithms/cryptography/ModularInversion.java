@@ -1,7 +1,5 @@
 package io.github.floriangubler.algorithms.cryptography;
 
-import io.github.floriangubler.algorithms.calculations.general.EuclideanAlgorithm;
-
 public class ModularInversion {
 
     /**
