@@ -259,6 +259,7 @@ public class TwoThreeTree<T extends Comparable<T>> {
         Node.SeparatorNode<T> leftChild;
         Node.SeparatorNode<T> rightChild;
 
+        // We check the value against the two separators to determine how to split the four children into two two-nodes.
         if (value.compareTo(node.firstSeparator) < 0) {
             // The order is: new value, old left, old middle, old right.
             // The first two children form the left split node.
@@ -281,6 +282,8 @@ public class TwoThreeTree<T extends Comparable<T>> {
     }
 
     /**
+     * Replaces a child node in a parent separator node with two new child nodes and propagates the split upward if necessary.
+     *
      * @param parent The parent of the node being replaced, or {@code null} when
      * the split node is the root.
      * @param oldChild The child being replaced.
