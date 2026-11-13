@@ -1,6 +1,6 @@
 package io.github.floriangubler.algorithms.knapsack;
 
-public class KnapsackProblems {
+public class MaximumFriendsInvitation {
 
     /**
      * Given a list of friends (length n) and the amount of coffee (A) and tea (B) they drink, find the maximum amount of friends to invite
